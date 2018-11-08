@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <style>
+            html,body{
+                margin: 0;
+            }
+            .keyvisual{
+                width: 500px;
+                height: 500px;
+                position: relative;
+            }
+            .keyvisual>.visual{
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                opacity: 0;
+                transition:opacity 0.5s;
+            }
+            .keyvisual>.visual:first-child{
+                opacity: 1;
+                
+            }
+        </style>
+        <script>
+            let visuals;
+            let index;//用來追蹤目前顯示圖片的編號
+            let timer=1000;
+                interval = window.setInterval(next, timer);
+            window.addEventListener("load",function(){
+                visuals=document.querySelectorAll(".visual");
+                for(let i=0;i<visuals.length;i++){
+                    visuals[i].style.backgroundImage="url("+i+".jpg)";
+                }
+                index=0;//剛開始顯示第一張
+            });
+            function next(){
+                //目前這張圖片，淡出
+                visuals[index].style.opacity=0;
+                //取得下一張圖片，淡入
+                index=(index+1)%3;
+                visuals[index].style.opacity = 1;
+            }
+        </script>
+    </head>
+    <body>
+        <h1>2018台北市長選舉</h1>
+    <div class="keyvisual">
+        <div class="visual"></div>
+        <div class="visual"></div>
+        <div class="visual"></div>
+    </div>
+    </body>
+</html>
