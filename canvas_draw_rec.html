@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Canvas Assignment</title>
+    <style type="text/css">
+    .ground{
+        position: relative;
+    }
+    .ground>canvas{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+    </style>
+    <script>
+    let ctx, controlCtx;
+    window.addEventListener('load', function(){
+        ctx = document.querySelector("#myCanvas").getContext("2d");
+        controlCtx = document.querySelector("#Cvs").getContext("2d");
+        myCanvas.addEventListener('mousedown', mouseDown);
+        myCanvas.addEventListener('mousemove', mouseMove);
+        myCanvas.addEventListener('mouseup', mouseUp);
+    });
+
+        let rect = {},
+            drag = false;
+
+        function mouseDown(e) {
+            let ground = document.querySelector(".ground");
+            rect.startX = e.clientX - ground.offsetLeft;
+            rect.startY = e.clientY - ground.offsetTop;
+            drag = true;
+        }
+
+        function mouseMove(e) {
+            if (drag) {
+                let ground = document.querySelector(".ground");
+                rect.w = (e.clientX - ground.offsetLeft) - rect.startX;
+                rect.h = (e.clientY - ground.offsetTop) - rect.startY;
+                ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+                ctx.fillRect(rect.startX, rect.startY, rect.w, rect.h);
+            }
+        }
+
+        function mouseUp() {
+            drag = false;
+            controlCtx.fillRect(rect.startX, rect.startY, rect.w, rect.h);
+        }
+    
+    </script>
+</head>
+<body>
+    <h3>Canvas 矩形工具</h3>
+    <div class="ground">
+        <canvas id="Cvs" width="800" height="600"></canvas>
+        <canvas id="myCanvas" width="800" height="600" style="border:1px solid #000000;"></canvas>
+    </div>
+</body>
+</html>
