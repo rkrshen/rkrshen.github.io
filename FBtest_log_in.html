@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Facebook Login JavaScript Example</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <script>
+        function statusChangeCallback(response) {
+            console.log(response);
+            let login = document.getElementById("login");
+            let main = document.getElementById("main");
+            login.style.display = main.style.display = "none";
+            if (response.status === 'connected') {
+                //已授權，顯示主畫面
+                main.style.display = "block";
+                getData();
+            } else {
+                //未授權，顯示登入畫面
+                login.style.display = "block";
+            }
+        }
+
+
+        function signup() {
+            //要求使用者登入，授權資料
+            //並且決定授權範圍
+            FB.login(function (response) {
+                statusChangeCallback(response);
+            }, {
+                    scope: "public_profile, user_gender, email,user_posts"
+                });
+        }
+
+        function getData() {
+            FB.api("/me/feed", function (response) {
+                console.log(response);
+            })
+        }
+
+        function getData() {
+            FB.api("/me/feed?fields=id,message,from", function (response) {
+                for (let i = 0; i < response.data.length; i++) {
+                    FB.api("/" + response.data[i].id, function (post) {
+                        console.log(post);
+                    });
+                }
+            });
+        }
+
+
+        // function getData(){
+        //     //呼叫 Facebook Graph API 取得使用者基本資料
+        //     FB.api("/me?fields=id,name,gender,email", function(response){
+        //         //https://graph.facebook.com/100000178773182?access_token=EAAChJt1sWtQBAAmWPcpaSZBqsBZBQHKxYAsq03Vio52AkKhxAG4kfqBtUiRFMDeQx8oDHTLsZB1Spvk6VIvrArFrsUVXmy0mPzVm3PaxSY2KvktQfUiOaiEva9hZBtmsI6Pz93kPsTl
+        //         let main=document.getElementById("main");
+        //         //https://graph.facebook.com/[user id]/picture
+        //         let src="https://graph.facebook.com/"+ response.id+ "/picture";
+        //         main.innerHTML="<img src='"+src+"' /> "+
+        //             "<br><br>Hello! "+ response.name;
+        //         console.log(response);
+        //     });
+        // }
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '177188295695060',
+                cookie: true,
+                xfbml: true,
+                version: 'v2.8'
+            });
+
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <div id="login" style="display:none">
+        <button onclick="signup()" ;>Login</button>
+    </div>
+    <div id="main" style="display:none">
+        Hello
+    </div>
+
+</body>
+
+</html>
