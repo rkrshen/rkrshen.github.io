@@ -7,7 +7,8 @@ navbar(
   menu-classes="ml-auto"
 )
   template
-    router-link.navbar-brand(to="/") Bruce Movie
+    router-link.navbar-brand(to="/")
+      img(src="img/dev/logo.png" style="width: 100px;height:auto;")
   template(slot="navbar-menu")
     li.nav-item(v-for="(item, index) in navs" :key="index")
       a.nav-link(:href="item.href")

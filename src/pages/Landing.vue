@@ -1,17 +1,18 @@
 <template lang="pug">
 div
   div.page-header.page-header-small
-    parallax.page-header-image(style="background-image: url('img/dev/award1.png')")
+    parallax.page-header-image(style="background-image: url('img/dev/cover6.jpg')")
     .content-center
       .container
-        h1.title 澤影映像
+        h1.title 澤影映像電影特效
+        h5 Bruce Movie Special Effects CO., LTD.
   .section.section-about-us#about
     .container
       .row
         .col-md-8.ml-auto.mr-auto.text-center
           h2.title 將為台灣電影現場爆破特效<br>打造更安全更專業的環境
           h5.description
-            |台灣現場特效團隊，特別致力專精於「爆破」、「火效」之現場特別效果。 
+            |台灣現場特效團隊，特別致力專精於「爆破」、「火效」、「煙效」之現場特別效果。 
             |爆破拍攝以「安全」為保障，貨真價實的火炸藥爆破為「品質」。
             |澤影皆依照爆破特效安全守則，極力降低事故風險；
             |也輔導各劇組合法申請特效爆破，為全台灣目前唯一在文化部與經濟部等主管機關，
@@ -23,7 +24,11 @@ div
             .image-container.image-left(style="background-image: url('img/dev/funder.png')")
               <!-- First image on the left side -->
               p.blockquote.blockquote-primary
-                |「這裡可以放一段比較核心的理念或者是一些品牌優勢反正都還可以改但我希望可以稍微長一點點這樣排版才好看」
+                |「做為一個爆破指導，對於每種火藥的特性都要瞭若指掌，並時時刻刻警惕自己，每次按下的按鈕，都不見得機會重來。」
+                br
+                |「在片場上，什麼尊嚴和面子都顧不上，因為如果發生意外，效果再好都沒有意義！」
+                br
+                |「技術就是兩個字 ：奉獻，就是把你的全部奉獻給你熱愛的一切！勿安於現狀，莫忘初衷。」
                 br
                 br
                 small -創辦人 陳銘澤
@@ -39,7 +44,7 @@ div
             br
             h3 澤影團隊
             p
-              |台灣現場特效團隊，特別致力專精於「爆破」、「火效」之現場特別效果。爆破拍攝以「安全」為保障，貨真價實的火炸藥爆破為「品質」。澤影皆依照爆破特效安全守則，極力降低事故風險；也輔導各劇組合法申請特效爆破，為全台灣目前唯一在文化部與經濟部等主管機關，有成功認證案例的特效公司。 
+              |台灣現場特效團隊，特別致力專精於「爆破」、「火效」、「煙效」之現場特別效果。爆破拍攝以「安全」為保障，貨真價實的火炸藥爆破為「品質」。澤影皆依照爆破特效安全守則，極力降低事故風險；也輔導各劇組合法申請特效爆破，為全台灣目前唯一在文化部與經濟部等主管機關，有成功認證案例的特效公司。 
             br
             br
             h3 合法火藥進口
@@ -114,20 +119,23 @@ div
               .row.collections
                 .col-md-6
                   .video-container
+                    p 《火神的眼淚》
                     video.img-raised(width="100%" controls)
                       source(src="video/火神的眼淚.MOV" type="video/mp4")
                     p 火焰效果/火球效果/火焰延燒效果
-                    p 《火神的眼淚》
                   .video-container
+                    p 《江湖無難事》
                     video.img-raised(width="100%" controls)
                       source(src="video/江湖無難事.MP4" type="video/mp4")
                     p 爆破-火球效果
                 .col-md-6
                   .video-container
+                    p 《逆局》
                     video.img-raised(width="100%" controls)
                       source(src="video/逆局.MOV" type="video/mp4")
                     p 反應彈-血包效果/玻璃爆裂效果
                   .video-container
+                    p 《絕地求生：刺激戰場》
                     video.img-raised(width="100%" controls)
                       source(src="video/絕地求生.MOV" type="video/mp4")
                     p 爆破-粉塵效果/火焰效果
@@ -135,6 +143,13 @@ div
     .container
       h2.title 參與作品
       carousel-section
+
+  .section.section-team.text-center#work
+    .container
+      h2.title 器材設備
+      .row
+        .col-sm-2.py-2(v-for="(img, key) in equips" :key="img.title")
+          img(v-lazy="img.src" alt="Image" class="rounded img-raised")
 
   .section.section-contact-us.text-center#contact
     .container
@@ -144,12 +159,12 @@ div
         .col-lg-6.text-center.ml-auto.mr-auto.col-md-8
           fg-input.input-lg(
             class="input-lg"
-            placeholder="First Name..."
+            placeholder="Name..."
             v-model="form.firstName"
             addon-left-icon="now-ui-icons users_circle-08"
           )
           fg-input.input-lg(
-            placeholder="Email Here..."
+            placeholder="Email..."
             v-model="form.email"
             addon-left-icon="now-ui-icons ui-1_email-85"
           )
@@ -162,7 +177,7 @@ div
               placeholder="Type a message..."
             )
           .send-button
-            n-button(type="primary" round block size="lg") Send Message
+            n-button(type="primary" round block size="md") Send Message
 </template>
 <script>
 import { Button, FormGroupInput, Tabs, TabPane } from '@/components';
@@ -185,6 +200,18 @@ export default {
         message: ''
       }
     };
+  },
+  computed: {
+    equips () {
+      const arr = []
+      for(let i = 0; i < 23; i += 1) {
+        arr.push({
+          title: `${i+1}`,
+          src: require(`@/assets/equipment/LINE_ALBUM_230523_${i}.jpg`)
+        })
+      }
+      return arr
+    }
   }
 };
 </script>

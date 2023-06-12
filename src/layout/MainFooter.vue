@@ -8,10 +8,10 @@ footer.footer(
       .ul
         .li
           span.mr-3 聯絡電話
-          a(href="tel:+886-912******") 0912******
+          a(href="tel:+886-912******") +886 911844183
         .li
-          span.mr-3 聯絡地址
-          a(href="https://www.google.com.tw/maps/@25.0005085,121.4211276,15.23z") 新北市******************
+          span.mr-3 聯絡信箱
+          a(href="mailto:brucemovie@gmail.com") brucemovie@gmail.com
     .copyright Bruce Movie Special Effects CO., LTD. &copy; {{ year }}
 </template>
 <script>

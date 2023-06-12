@@ -1,11 +1,13 @@
 const path = require('path')
+const PrerenderSPAPlugin = require('prerender-spa-plugin');
+const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
 
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
 module.exports = {
   productionSourceMap: false,
-  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   filenameHashing: false,
   assetsDir: 'assets',
   chainWebpack: (config) => {
@@ -31,13 +33,23 @@ module.exports = {
     }
 
     config.plugin('html').tap(args => {
-      args[0].title = '澤影特效'
+      args[0].title = '澤影映像電影特效'
       return args
     })
   },
   configureWebpack: (config) => {
     if (process.env.NODE_ENV === 'production') {
       config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
+
+      config.plugins.push(
+        new PrerenderSPAPlugin({
+          staticDir: path.join(__dirname, 'dist'),
+          routes: ['/'],
+          renderer: new Renderer({
+            renderAfterDocumentEvent: 'render-event',
+          }),
+        })
+      );
     }
   }
 };

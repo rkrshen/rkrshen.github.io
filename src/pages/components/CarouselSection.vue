@@ -3,7 +3,7 @@
   .container
     .row.justify-content-center
       .col-8
-        el-carousel(height="400px" type="card" indicator-position="none")
+        el-carousel(height="40vh" :type="carouselType" indicator-position="none")
           el-carousel-item(v-for="(item, index) in list" :key="index")
             img.d-block(:src="item.src" :alt="item.alt")
             .carousel-caption.d-none.d-md-block
@@ -19,6 +19,7 @@ export default {
   },
   data () {
     return {
+      windowWidth: window.innerWidth,
       list: [
         {
           src: 'img/dev/award2.png',
@@ -46,6 +47,17 @@ export default {
           info: '入圍 第22屆 台北電影節-最佳視覺效果獎 《灼人秘密》'
         }
       ]
+    }
+  },
+  mounted () {
+    const vm = this
+    window.addEventListener('resize', function () {
+      vm.windowWidth = window.innerWidth
+    })
+  },
+  computed: {
+    carouselType () {
+      return this.windowWidth > 768 ? 'card' : ''
     }
   }
 };
